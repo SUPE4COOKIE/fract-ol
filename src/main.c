@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:52:59 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/16 18:44:17 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:45:33 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,23 @@
 #include <stdio.h>
 #include <math.h>
 
-t_complex pix_to_complex(size_t x, size_t y)
+unsigned	int	get_color(float i)
+{
+	unsigned int color;
+
+	color = 0;
+	color += (unsigned int)(9 * (1 - i) * pow(i, 3) * 255) << 16;
+	color += (unsigned int)(15 * pow((1 - i), 2) * pow(i, 2) * 255) << 8;
+	color += (unsigned int)(8.5 * pow((1 - i), 3) * i * 255);
+	return (color);
+}
+
+t_complex pix_to_complex(size_t x, size_t y, t_mlx_data data)
 {
 	t_complex c;
 
-	c.re = (x - (WIDTH / 2.0)) * 4.0 / WIDTH;
-	c.im = (y - (HEIGHT / 2.0)) * 4.0 / HEIGHT;
+	c.re = (x - (WIDTH / 2.0)) * (4.0 / WIDTH) / data.zoom + data.center.re;
+	c.im = (y - (HEIGHT / 2.0)) * (4.0 / HEIGHT) / data.zoom + data.center.im;
 	return (c);
 }
 
@@ -36,6 +47,7 @@ t_complex square_complex(t_complex z)
 
 char	has_reached_limit(t_complex z)
 {
+	// magnitude of complex number
 	if (sqrt((z.re * z.re) + (z.im * z.im)) > 2)
 		return (1);
 	return (0);
@@ -50,7 +62,7 @@ size_t mandelbrot(t_complex c)
 	z.re = 0;
 	z.im = 0;
 	i = 0;
-	while (i < 100 && !has_reached_limit(z))
+	while (i < 30 && !has_reached_limit(z))
 	{
 		//square complex
 		complex_tmp = square_complex(z);
@@ -64,7 +76,7 @@ size_t mandelbrot(t_complex c)
 	return (i);
 }
 
-void	render(int i, t_mlx_data data)
+void	render(t_mlx_data data)
 {
 	size_t x, y;
 
@@ -75,16 +87,63 @@ void	render(int i, t_mlx_data data)
 			while (x < WIDTH)
 			{
 				// map pixel to complex plane (???)
-				t_complex c = pix_to_complex(x, y);
+				t_complex c = pix_to_complex(x, y, data);
+				c.re += data.x_offset;
+				c.im += data.y_offset;
 				size_t i = mandelbrot(c);
 				size_t offset = (y * data.line_length) + (x * (data.bits_per_pixel / 8));
-				unsigned int color = gradientColor((float)i / 100);
+				unsigned int color = get_color((float)i / 30);
 				*(unsigned int *)(data.pixels + offset) = color;
 	
 				x++;
 			}
 			y++;
 		}
+}
+
+int	key_hook(int keycode, t_mlx_data *data)
+{
+	printf("keycode = %d\n", keycode);
+	if (keycode == 65361)
+		data->x_offset -= data->move_value;
+	if (keycode == 65363)
+		data->x_offset += data->move_value;
+	if (keycode == 65362)
+		data->y_offset -= data->move_value;
+	if (keycode == 65364)
+		data->y_offset += data->move_value;
+	if (keycode == 65451)
+	{
+		data->zoom *= 1.1;
+		data->move_value /= 1.1;
+	}
+	if (keycode == 65453)
+	{
+		data->zoom /= 1.1;
+		data->move_value *= 1.1;
+	}
+	render(*data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	return (0);
+}
+
+int	close_hook(t_mlx_data *data)
+{
+	mlx_destroy_window(data->mlx, data->win);
+	exit(0);
+	return (0);
+}
+
+void	call_hooks(t_mlx_data *data)
+{
+	data->x_offset = 0;
+	data->y_offset = 0;
+	data->zoom = 1;
+	data->center.re = 0;
+	data->center.im = 0;
+	data->move_value = 0.1;
+	mlx_hook(data->win, 17, 0, close_hook, data);
+	mlx_key_hook(data->win, key_hook, data);
 }
 
 int main(void)
@@ -96,8 +155,8 @@ int main(void)
     data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Mandelbrot");
     data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
     data.pixels = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
-	render(-1, data);
-
+	call_hooks(&data);
+	render(data);
     mlx_put_image_to_window(data.mlx, data.win, data.img, 0, 0);
     mlx_loop(data.mlx);
     return (0);

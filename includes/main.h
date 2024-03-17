@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 22:18:38 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/13 10:41:58 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:33:52 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MAIN_H
 # define WIDTH 800
 # define HEIGHT 800
+
+typedef	struct s_complex
+{
+	double	re;
+	double	im;
+}				t_complex;
 
 typedef struct	s_mlx_data {
 	void	*mlx;
@@ -23,12 +29,11 @@ typedef struct	s_mlx_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	double	x_offset;
+	double	y_offset;
+	double	zoom;
+	double	move_value;
+	t_complex	center;
 }				t_mlx_data;
-
-typedef	struct s_complex
-{
-	double	re;
-	double	im;
-}				t_complex;
 
 #endif
