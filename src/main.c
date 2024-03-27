@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:52:59 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/22 13:26:39 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:01:36 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	has_reached_limit(t_complex z)
 	return (0);
 }
 
-size_t julia(t_complex z)
+size_t julia(t_complex z, double c_re, double c_im)
 {
     t_complex complex_tmp;
     size_t i = 0;
@@ -66,7 +66,7 @@ size_t julia(t_complex z)
     {
         // square complex
         complex_tmp = square_complex(z);
-        z.re = complex_tmp.re - 0.5251993;
+        z.re = complex_tmp.re + c_re;
         z.im = complex_tmp.im + 0.5251993;
         i++;
     }
@@ -110,7 +110,7 @@ void	render(t_mlx_data data)
 				t_complex c = pix_to_complex(x, y, data);
 				c.re += data.x_offset;
 				c.im += data.y_offset;
-				size_t i = julia(c);
+				size_t i = julia(c, - 0.5251993, 0.5251993);
 				size_t offset = (y * data.line_length) + (x * (data.bits_per_pixel / 8));
 				unsigned int color = get_color((float)i);
 				*(unsigned int *)(data.pixels + offset) = color;
@@ -123,7 +123,6 @@ void	render(t_mlx_data data)
 
 int	key_hook(int keycode, t_mlx_data *data)
 {
-	printf("keycode = %d\n", keycode);
 	if (keycode == XK_Left)
 		data->x_offset -= data->move_value;
 	if (keycode == XK_Right)
@@ -138,6 +137,25 @@ int	key_hook(int keycode, t_mlx_data *data)
 		data->move_value /= 1.1;
 	}
 	if (keycode == 65453)
+	{
+		data->zoom /= 1.1;
+		data->move_value *= 1.1;
+	}
+	render(*data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	return (0);
+}
+
+int mouse_hook(int keycode,int x, int y, t_mlx_data *data)
+{
+	(void)x;
+	(void)y;
+	if (keycode == 4)
+	{
+		data->zoom *= 1.1;
+		data->move_value /= 1.1;
+	}
+	if (keycode == 5)
 	{
 		data->zoom /= 1.1;
 		data->move_value *= 1.1;
@@ -162,6 +180,7 @@ void	call_hooks(t_mlx_data *data)
 	data->move_value = 0.1;
 	mlx_hook(data->win, 17, 0, close_hook, data);
 	mlx_key_hook(data->win, key_hook, data);
+	mlx_mouse_hook(data->win, mouse_hook, data);
 }
 
 int main(void)
