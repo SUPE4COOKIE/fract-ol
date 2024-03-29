@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/29 03:00:40 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:04:18 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
+#include "../includes/main.h"
+#include <float.h>
 
-static	int	ft_isdigit(int c, char *been_coma)
+static	int	ft_isdigit(int c)
 {
 	if ((c >= '0' && c <= '9') || c == '.' || c == ',')
-	{
-		if (c == '.' || c == ',')
-		{
-			if (*been_coma == 1)
-				return (0);
-			*been_coma = 1;
-		}
 		return (1);
-	}
 	return (0);
 }
 static int	ft_isspace(char c)
@@ -34,29 +27,43 @@ static int	ft_isspace(char c)
 	return (0);
 }
 
-static int	return_overflow(long int result, int nptr, int sign)
+int	check_coma(const char *nptr)
 {
-	if (sign > 0)
+	char	been_coma;
+	size_t	coma_precision;
+	size_t	i;
+
+	been_coma = 0;
+	coma_precision = 0;
+	i = 0;
+	while (nptr[i] && ft_isdigit((char)nptr[i]))
 	{
-		if (result > (INT_MAX - nptr) / 10)
+		if ((nptr[i] == '.' || nptr[i] == ',') && !been_coma)
+		{
+			been_coma = 1;
+			i++;
+			continue;
+		}
+		else if ((nptr[i] == '.' || nptr[i] == ',') && been_coma)
 			return (0);
+		if (been_coma == 1)
+			coma_precision++;
+		i++;
 	}
-	else
-	{
-		if (-result < (INT_MIN + nptr) / 10)
-			return (-1);
-	}
+	if (coma_precision > 6)
+		return (0);
 	return (1);
 }
 
-int	ft_atoi(const char *nptr)
+float	ft_atof(const char *nptr)
 {
-	double					result;
-	char					been_coma;
-	unsigned long long int 	divider;
-	int						sign;
+	double	result;
+	char	been_coma;
+	double 	divider;
+	int		sign;
 
 	result = 0;
+	divider = 1;
 	sign = 1;
 	while (ft_isspace(*nptr))
 		nptr++;
@@ -67,12 +74,27 @@ int	ft_atoi(const char *nptr)
 	}
 	else if (*nptr == '+')
 		nptr++;
-	while (*nptr && ft_isdigit((unsigned char)*nptr, &been_coma))
+	if (!check_coma(nptr))
 	{
-		if (return_overflow(result, (int)*nptr - '0', sign) != 1)
-			return (return_overflow(result, *nptr - '0', sign));
-		result = result * 10 + *nptr - '0';
+		write(2, "Invalid input\n", 14);
+		exit(1);
+	}
+	while (*nptr && ft_isdigit((unsigned char)*nptr))
+	{
+		if (*nptr == '.' || *nptr == ',')
+		{
+			been_coma = 1;
+			nptr++;
+			continue;
+		}
+		if (been_coma)
+		{
+			result += (double)(*nptr - '0') / divider;
+			divider *= 10;
+		}
+		else
+			result = result * 10 + *nptr - '0';
 		nptr++;
 	}
-	return ((int)(result * sign));
+	return ((float)(result * sign));
 }
