@@ -2,7 +2,7 @@ CFLAGS = -MMD -MP # -Wall -Wextra -Werror
 NAME = fractol
 
 SRC_PATH = src
-SRC_FILES = main.c
+SRC_FILES = main.c ft_atoi.c
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ = $(SRCS:.c=.o)
 OBJDEPS = $(OBJ:.o=.d)
