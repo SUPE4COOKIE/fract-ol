@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractals.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:46:52 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:58:43 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:01:24 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	julia(t_complex z, double c_re, double c_im)
 	{
 		complex_tmp = square_complex(z);
 		z.re = complex_tmp.re + c_re;
-		z.im = complex_tmp.im + 0.5251993;
+		z.im = complex_tmp.im + c_im;
 		i++;
 	}
 	return (i);

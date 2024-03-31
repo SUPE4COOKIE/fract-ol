@@ -3,29 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 05:06:06 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 19:51:04 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
-
-static double	return_overflow(long double result)
-{
-	if (result > __DBL_MAX__)
-	{
-		write(2, "Overflow\n", 9);
-		exit(1);
-	}
-	if (result < __DBL_MIN__)
-	{
-		write(2, "Underflow\n", 10);
-		exit(1);
-	}
-	return ((double)result);
-}
+#include <stdio.h>
 
 static double	dbl_conversion(const char *nptr, int sign)
 {
@@ -53,7 +39,7 @@ static double	dbl_conversion(const char *nptr, int sign)
 			result = result * 10 + *nptr - '0';
 		nptr++;
 	}
-	return (return_overflow(result * sign));
+	return (result * sign);
 }
 
 double	ft_atof(const char *nptr)

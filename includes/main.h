@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 22:18:38 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 05:14:16 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:26:49 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 
-typedef struct	s_complex
+typedef struct s_complex
 {
 	double	re;
 	double	im;
 }				t_complex;
 
-typedef struct	s_mlx_data
+typedef struct s_mlx_data
 {
 	void	*mlx;
 	void	*win;
@@ -36,8 +36,8 @@ typedef struct	s_mlx_data
 	int		line_length;
 	int		endian;
 	char	ftype;
-	double	julie_re;
-	double	julie_im;
+	double	julia_re;
+	double	julia_im;
 	double	x_offset;
 	double	y_offset;
 	double	zoom;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:57:41 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:57:07 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:06:28 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	frac_type(char *str, t_mlx_data *data)
 	if ((str[0] == 'j' || str[0] == 'J') && str[1] == '\0')
 	{
 		data->ftype = 'j';
-		data->julie_re = -0.5251993;
-		data->julie_im = 0.5251993;
+		data->julia_re = -0.5251993;
+		data->julia_im = 0.5251993;
 		return (1);
 	}
 	if ((str[0] == 'm' || str[0] == 'M') && str[1] == '\0')
@@ -60,6 +60,6 @@ void	args_check(int ac, char **av, t_mlx_data *data)
 
 void	set_julia(char **av, t_mlx_data *data)
 {
-	data->julie_re = ft_atof(av[2]);
-	data->julie_im = ft_atof(av[3]);
+	data->julia_re = ft_atof(av[2]);
+	data->julia_im = ft_atof(av[3]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
+/*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:52:59 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:56:16 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:06:02 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	render(t_mlx_data data)
 			if (data.ftype == 'm')
 				i = mandelbrot(c);
 			else if (data.ftype == 'j')
-				i = julia(c, data.julie_re, data.julie_im);
+				i = julia(c, data.julia_re, data.julia_im);
 			place_pixel(&data, x, y, i);
 			x++;
 		}
