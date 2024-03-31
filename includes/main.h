@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 22:18:38 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 20:26:49 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:37:41 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ t_complex		pix_to_complex(size_t x, size_t y, t_mlx_data data);
 t_complex		square_complex(t_complex z);
 char			has_reached_limit(t_complex z);
 unsigned int	get_color(float i);
-# define MAX_ITER 100
+# define MAX_ITER 10
 #endif

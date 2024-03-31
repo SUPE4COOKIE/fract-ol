@@ -6,16 +6,23 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 18:52:59 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 20:06:02 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 21:03:19 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
+#include <stdio.h>
 
 int	exit_mlx(t_mlx_data *data)
 {
-	mlx_destroy_window(data->mlx, data->win);
-	exit(0);
+	if (data->mlx && data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->win && data->mlx && data->img)
+		mlx_destroy_image(data->mlx, data->img);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	exit(1);
 	return (0);
 }
 
@@ -73,6 +80,8 @@ int	main(int ac, char **av)
 		data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Mandelbrot");
 	else
 		data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "Julia");
+	if (!data.win)
+		exit_mlx(&data);
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.pixels = mlx_get_data_addr(data.img, &data.bits_per_pixel, \
 					&data.line_length, &data.endian);

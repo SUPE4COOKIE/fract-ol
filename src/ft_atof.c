@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 19:51:04 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 20:48:58 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static double	dbl_conversion(const char *nptr, int sign)
 
 double	ft_atof(const char *nptr)
 {
-	long double	result;
 	int			sign;
 
 	sign = 1;
