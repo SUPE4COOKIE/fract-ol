@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:57:41 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:38:46 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 04:57:07 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,8 @@ void	args_check(int ac, char **av, t_mlx_data *data)
 	}
 }
 
-#include <stdio.h>
 void	set_julia(char **av, t_mlx_data *data)
 {
-	// atof implementation
 	data->julie_re = ft_atof(av[2]);
 	data->julie_im = ft_atof(av[3]);
-	printf("real part: %f\nimaginary part: %f\n", data->julie_re, data->julie_im);
 }

@@ -6,21 +6,20 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:01:24 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:07:33 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 05:06:06 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-
 static double	return_overflow(long double result)
 {
-	if (result > DBL_MAX)
+	if (result > __DBL_MAX__)
 	{
 		write(2, "Overflow\n", 9);
 		exit(1);
 	}
-	if (result < -DBL_MAX)
+	if (result < __DBL_MIN__)
 	{
 		write(2, "Underflow\n", 10);
 		exit(1);
@@ -28,12 +27,12 @@ static double	return_overflow(long double result)
 	return ((double)result);
 }
 
-static double dbl_conversion(const char *nptr, int sign)
+static double	dbl_conversion(const char *nptr, int sign)
 {
 	long double	result;
 	size_t		divider;
 	char		been_coma;
-	
+
 	divider = 1;
 	result = 0;
 	been_coma = 0;
@@ -43,7 +42,7 @@ static double dbl_conversion(const char *nptr, int sign)
 		{
 			been_coma = 1;
 			nptr++;
-			continue;
+			continue ;
 		}
 		if (been_coma)
 		{

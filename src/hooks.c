@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:58:19 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 03:59:02 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 04:56:43 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	key_hook(int keycode, t_mlx_data *data)
 	return (0);
 }
 
-int mouse_hook(int keycode,int x, int y, t_mlx_data *data)
+int	mouse_hook(int keycode, int x, int y, t_mlx_data *data)
 {
 	(void)x;
 	(void)y;

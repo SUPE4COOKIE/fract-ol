@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 22:18:38 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:40:24 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 05:14:16 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 # define WIDTH 800
 # define HEIGHT 800
 # include <unistd.h>
-# include <float.h>
 # include <stdlib.h>
 # include <math.h>
-#include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 
-typedef	struct s_complex
+typedef struct	s_complex
 {
 	double	re;
 	double	im;
 }				t_complex;
 
-typedef struct	s_mlx_data {
+typedef struct	s_mlx_data
+{
 	void	*mlx;
-	void 	*win;
+	void	*win;
 	void	*img;
 	char	*pixels;
 	int		bits_per_pixel;
@@ -43,6 +43,7 @@ typedef struct	s_mlx_data {
 	double	zoom;
 	double	move_value;
 }				t_mlx_data;
+
 int				exit_mlx(t_mlx_data *data);
 double			ft_atof(const char *nptr);
 int				ft_isdigit(int c);
@@ -54,7 +55,7 @@ void			set_julia(char **av, t_mlx_data *data);
 int				frac_type(char *str, t_mlx_data *data);
 void			render(t_mlx_data data);
 int				key_hook(int keycode, t_mlx_data *data);
-int 			mouse_hook(int keycode,int x, int y, t_mlx_data *data);
+int				mouse_hook(int keycode, int x, int y, t_mlx_data *data);
 void			call_hooks(t_mlx_data *data);
 size_t			julia(t_complex z, double c_re, double c_im);
 size_t			mandelbrot(t_complex c);

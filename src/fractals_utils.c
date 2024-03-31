@@ -6,22 +6,22 @@
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:56:23 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 04:34:18 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 04:48:31 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/main.h"
 
-t_complex pix_to_complex(size_t x, size_t y, t_mlx_data data)
+t_complex	pix_to_complex(size_t x, size_t y, t_mlx_data data)
 {
-	t_complex c;
+	t_complex	c;
 
 	c.re = (x - (WIDTH / 2.0)) * (4.0 / WIDTH) / data.zoom;
 	c.im = (y - (HEIGHT / 2.0)) * (4.0 / HEIGHT) / data.zoom;
 	return (c);
 }
 
-t_complex square_complex(t_complex z)
+t_complex	square_complex(t_complex z)
 {
 	t_complex	result;
 
@@ -37,9 +37,9 @@ char	has_reached_limit(t_complex z)
 	return (0);
 }
 
-unsigned	int	get_color(float i)
+unsigned int	get_color(float i)
 {
-	unsigned int color;
+	unsigned int	color;
 
 	color = 0;
 	if (i == MAX_ITER)
@@ -47,6 +47,6 @@ unsigned	int	get_color(float i)
 	i = sin(sqrt(i / MAX_ITER));
 	color += (unsigned int)((i) * 255) << 16;
 	color += (unsigned int)((i) * 255) << 8;
-	color += (unsigned int)((i) * 255) * 255;
+	color += (unsigned int)((i) * 255) *255;
 	return (color);
 }

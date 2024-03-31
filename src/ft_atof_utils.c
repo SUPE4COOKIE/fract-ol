@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atod_utils.c                                    :+:      :+:    :+:   */
+/*   ft_atof_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mwojtasi <mwojtasi@student.42lyon.fr >     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 01:52:20 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 01:52:26 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/03/31 04:45:44 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
 int	ft_isspace(char c)
 {
 	if ((c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
@@ -41,7 +42,7 @@ int	check_coma(const char *nptr)
 		{
 			been_coma = 1;
 			i++;
-			continue;
+			continue ;
 		}
 		else if ((nptr[i] == '.' || nptr[i] == ',') && been_coma)
 			return (0);
