@@ -8,9 +8,13 @@ OBJ = $(SRCS:.c=.o)
 OBJDEPS = $(OBJ:.o=.d)
 
 MLX_PATH = minilibx-linux
+MLX_A = $(MLX_PATH)/libmlx_Linux.a
 MLX_FLAGS = -L$(MLX_PATH) -lmlx -lXext -lX11 -lm
 
-all: $(NAME)
+all: $(MLX_A) $(NAME)
+
+$(MLX_A):
+	make -C $(MLX_PATH)
 
 $(NAME): $(OBJ) Makefile
 	cc $(OBJ) $(MLX_FLAGS) -o $(NAME)
@@ -22,9 +26,11 @@ $(NAME): $(OBJ) Makefile
 
 clean:
 	rm -f $(OBJ) $(OBJDEPS)
+	make -C $(MLX_PATH) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(MLX_PATH) clean
 
 re: fclean all
 
