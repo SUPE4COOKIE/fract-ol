@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 22:18:38 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/03/31 20:37:41 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/01 18:51:42 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ double			ft_atof(const char *nptr);
 int				ft_isdigit(int c);
 int				ft_isspace(char c);
 int				check_coma(const char *nptr);
-void			render(t_mlx_data data);
+void			render(t_mlx_data *data);
 void			args_check(int ac, char **av, t_mlx_data *data);
 void			set_julia(char **av, t_mlx_data *data);
 int				frac_type(char *str, t_mlx_data *data);
-void			render(t_mlx_data data);
 int				key_hook(int keycode, t_mlx_data *data);
 int				mouse_hook(int keycode, int x, int y, t_mlx_data *data);
 void			call_hooks(t_mlx_data *data);
@@ -63,5 +62,5 @@ t_complex		pix_to_complex(size_t x, size_t y, t_mlx_data data);
 t_complex		square_complex(t_complex z);
 char			has_reached_limit(t_complex z);
 unsigned int	get_color(float i);
-# define MAX_ITER 10
+# define MAX_ITER 100
 #endif

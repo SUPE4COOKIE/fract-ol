@@ -1,4 +1,4 @@
-CFLAGS = -MMD -MP -Wall -Wextra -Werror -g3
+CFLAGS = -MMD -MP -Wall -Wextra -Werror
 NAME = fractol
 
 SRC_PATH = src
