@@ -6,7 +6,7 @@
 /*   By: mwojtasi <mwojtasi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 03:58:19 by mwojtasi          #+#    #+#             */
-/*   Updated: 2024/04/01 18:57:50 by mwojtasi         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:16:11 by mwojtasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	key_hook(int keycode, t_mlx_data *data)
 		data->move_value *= 1.1;
 	}
 	render(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
@@ -54,7 +53,6 @@ int	mouse_hook(int keycode, int x, int y, t_mlx_data *data)
 		data->move_value *= 1.1;
 	}
 	render(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
